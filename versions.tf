@@ -3,8 +3,13 @@ terraform {
 
   required_providers {
     scalingo = {
-      source  = "Scalingo/scalingo"
+      source  = "scalingo/scalingo"
       version = "~> 2.0"
+    }
+
+    environment = {
+      source  = "eppo/environment"
+      version = "~> 1.3"
     }
   }
 }

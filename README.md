@@ -22,7 +22,7 @@ An opinionated Terraform module to provision an application and database very ea
 | [scalingo_container_type.containers](https://registry.terraform.io/providers/scalingo/scalingo/latest/docs/resources/container_type) | resource |
 | [scalingo_domain.canonical_domain](https://registry.terraform.io/providers/scalingo/scalingo/latest/docs/resources/domain) | resource |
 | [scalingo_domain.domain_aliases](https://registry.terraform.io/providers/scalingo/scalingo/latest/docs/resources/domain) | resource |
-| [scalingo_log_drain.front_log_drain](https://registry.terraform.io/providers/scalingo/scalingo/latest/docs/resources/log_drain) | resource |
+| [scalingo_log_drain.log_drain](https://registry.terraform.io/providers/scalingo/scalingo/latest/docs/resources/log_drain) | resource |
 | [scalingo_scm_repo_link.scm_repo_link](https://registry.terraform.io/providers/scalingo/scalingo/latest/docs/resources/scm_repo_link) | resource |
 
 ## Inputs

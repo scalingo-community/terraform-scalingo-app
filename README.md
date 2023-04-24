@@ -46,10 +46,12 @@ An opinionated Terraform module to provision an application and database very ea
 
 | Name | Description |
 |------|-------------|
-| <a name="output_domain"></a> [domain](#output\_domain) | Hostname to use to access the application (without https://) |
-| <a name="output_git_url"></a> [git\_url](#output\_git\_url) | Hostname to use to deploy code with Git + SSH |
-| <a name="output_region"></a> [region](#output\_region) | Region where the application is deployed |
-| <a name="output_url"></a> [url](#output\_url) | Base URL (https://*) to access the application |
+| <a name="output_domain"></a> [domain](#output\_domain) | Hostname to use to access the application. Same as the `url` output but without the `https://`. |
+| <a name="output_git_url"></a> [git\_url](#output\_git\_url) | Hostname to use to deploy code with Git + SSH. |
+| <a name="output_log_drain_url"></a> [log\_drain\_url](#output\_log\_drain\_url) | URL of the drain to use by Scalingo to send logs to your log management system. (Note: the username and password are included in the URL, be careful with the security of this URL.). It's already marked as sensitive to avoid leaking it in the Terraform state. |
+| <a name="output_origin_domain"></a> [origin\_domain](#output\_origin\_domain) | The FQDN of the Scalingo application (`<your_app_name>.<region>.scalingo.io`). Same as the url output if you have not set a canonical domain. |
+| <a name="output_region"></a> [region](#output\_region) | Region where the application is deployed. |
+| <a name="output_url"></a> [url](#output\_url) | Base URL to access the application (`https://*`). If you have set a canonical domain, this will be the URL with the canonical domain, otherwise it will be the default URL of the Scalingo application. |
 <!-- END_TF_DOCS -->
 
 ## Generate documentation

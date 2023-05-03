@@ -1,6 +1,6 @@
 output "url" {
   description = "Base URL to access the application (`https://*`). If you have set a canonical domain, this will be the URL with the canonical domain, otherwise it will be the default URL of the Scalingo application."
-  value       = (var.canonical_domain == "" ? scalingo_app.app.url : "https://${var.canonical_domain}")
+  value       = (var.domain != null ? "https://${var.domain}" : scalingo_app.app.url)
 }
 
 output "domain" {

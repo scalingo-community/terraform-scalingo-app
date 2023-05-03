@@ -22,8 +22,3 @@ output "region" {
   description = "Region where the application is deployed."
   value       = local.current_region
 }
-
-output "log_drain_url" {
-  description = "URL of the drain to use by Scalingo to send logs to your log management system. (Note: the username and password are included in the URL, be careful with the security of this URL.). It's already marked as sensitive to avoid leaking it in the Terraform state."
-  value       = sensitive(scalingo_app.log_drain.drain_url)
-}

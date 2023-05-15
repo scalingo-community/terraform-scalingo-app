@@ -36,29 +36,48 @@ variable "authorize_unsecure_http" {
   nullable    = false
 }
 
+# router_logs and sticky_sessions are not yet supported by the provider, but will be in the future
+# see https://github.com/Scalingo/terraform-provider-scalingo/issues/158 for tracking progress
+# variable "router_logs" {
+#   description = "When true, the router logs are included in the application logs."
+#   type        = bool
+#   default     = false
+#   nullable    = false
+# }
+
+# variable "sticky_sessions" {
+#   description = "When true, sticky sessions are enabled."
+#   type        = bool
+#   default     = false
+#   nullable    = false
+# }
+
 variable "github_integration" {
+  description = "Configuration of the GitHub integration of the application. Only one of github_integration or gitlab_integration can be set."
   type = object({
-    repo_url                              = string
-    integration_uuid                      = optional(string)
-    branch                                = optional(string, "main")
-    auto_deploy_enabled                   = optional(bool, true)
-    deploy_review_apps_enabled            = optional(bool, false)
-    delete_on_close_enabled               = optional(bool, true)
-    delete_stale_enabled                  = optional(bool, true)
-    hours_before_delete_on_close          = optional(string, "0")
-    hours_before_delete_stale             = optional(string, "72")
-    automatic_creation_from_forks_allowed = optional(bool, false)
+    repo_url            = string
+    integration_uuid    = optional(string)
+    branch              = optional(string, "main")
+    auto_deploy_enabled = optional(bool, true)
   })
   default = null
 }
 
 variable "gitlab_integration" {
+  description = "Configuration of the GitLab integration of the application. Only one of github_integration or gitlab_integration can be set."
   type = object({
-    repo_url                              = string
-    integration_uuid                      = optional(string)
-    branch                                = optional(string, "main")
-    auto_deploy_enabled                   = optional(bool, true)
-    deploy_review_apps_enabled            = optional(bool, false)
+    repo_url            = string
+    integration_uuid    = optional(string)
+    branch              = optional(string, "main")
+    auto_deploy_enabled = optional(bool, true)
+  })
+  default = null
+}
+
+variable "review_apps" {
+  description = "Configuration of the review apps of the application."
+  type = object({
+    enabled                               = optional(bool, false)
     delete_on_close_enabled               = optional(bool, true)
     delete_stale_enabled                  = optional(bool, true)
     hours_before_delete_on_close          = optional(string, "0")

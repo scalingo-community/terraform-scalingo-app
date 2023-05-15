@@ -28,13 +28,14 @@ resource "scalingo_scm_repo_link" "scm_repo_link" {
     : data.scalingo_scm_integration.scm_integration[each.key].id
   )
 
-  auto_deploy_enabled          = each.value.auto_deploy_enabled
-  branch                       = each.value.branch
-  delete_on_close_enabled      = each.value.delete_on_close_enabled
-  delete_stale_enabled         = each.value.delete_stale_enabled
-  deploy_review_apps_enabled   = each.value.deploy_review_apps_enabled
-  hours_before_delete_on_close = each.value.hours_before_delete_on_close
-  hours_before_delete_stale    = each.value.hours_before_delete_stale
+  auto_deploy_enabled = each.value.auto_deploy_enabled
+  branch              = each.value.branch
+
+  deploy_review_apps_enabled   = var.review_apps.enabled
+  delete_on_close_enabled      = var.review_apps.delete_on_close_enabled
+  hours_before_delete_on_close = var.review_apps.hours_before_delete_on_close
+  delete_stale_enabled         = var.review_apps.delete_stale_enabled
+  hours_before_delete_stale    = var.review_apps.hours_before_delete_stale
   # will be available in v2.1.0 :
-  # automatic_creation_from_forks_allowed = each.value.automatic_creation_from_forks_allowed
+  # automatic_creation_from_forks_allowed = var.review_apps.automatic_creation_from_forks_allowed
 }

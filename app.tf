@@ -9,6 +9,11 @@ resource "scalingo_app" "app" {
 
   stack_id    = data.scalingo_stack.stack.id
   force_https = !var.authorize_unsecure_http
+
+  # router_logs and sticky_sessions are not yet supported by the provider, but will be in the future
+  # see https://github.com/Scalingo/terraform-provider-scalingo/issues/158 for tracking progress
+  # sticky_sessions = var.sticky_sessions
+  # router_logs     = var.router_logs
 }
 
 resource "scalingo_container_type" "containers" {

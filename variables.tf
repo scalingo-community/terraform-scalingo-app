@@ -77,15 +77,15 @@ variable "gitlab_integration" {
 variable "review_apps" {
   description = "Configuration of the review apps of the application."
   type = object({
-    enabled                               = optional(bool, false)
+    enabled = optional(bool, false)
 
     # By default: delete review apps 0 hours after closing the PR
-    delete_on_close_enabled               = optional(bool, true)
-    hours_before_delete_on_close          = optional(string, "0")
+    delete_on_close_enabled      = optional(bool, true)
+    hours_before_delete_on_close = optional(string, "0")
 
     # By default: delete review apps after 5 days of inactivity (= no new deployment)
-    delete_stale_enabled                  = optional(bool, true)
-    hours_before_delete_stale             = optional(string, "168") 
+    delete_stale_enabled      = optional(bool, true)
+    hours_before_delete_stale = optional(string, "168")
 
     # By default: do not create review apps for PRs from forks
     automatic_creation_from_forks_allowed = optional(bool, false)
@@ -110,9 +110,18 @@ variable "additionnal_collaborators" {
 }
 
 variable "environment" {
-  description = "Map of environment variables to set on the application"
+  description = "Map of environment variables to set on the application. Note that value of environment variables can be null or empty."
   type        = map(string)
-  default     = {}
+  default     = null
+
+  # validate that the map does not contain any null and empty values
+  validation {
+    condition = length([
+      for key, value in var.environment :
+      key if value == null || value == ""
+    ]) == 0
+    error_message = "The map of environment variables must not contain any null or empty values."
+  }
 }
 
 variable "addons" {

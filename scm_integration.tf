@@ -21,7 +21,10 @@ data "scalingo_scm_integration" "scm_integration" {
 resource "scalingo_scm_repo_link" "scm_repo_link" {
   for_each = local.scm_integration
 
-  app    = scalingo_app.app.name
+  # Due to a bug in the provider, we need to use the app id instead of the app name
+  # Link to the issue : https://github.com/Scalingo/terraform-provider-scalingo/issues/153
+  app    = scalingo_app.app.id
+
   source = each.value.repo_url
   auth_integration_uuid = (each.value.integration_uuid != null
     ? each.value.integration_uuid

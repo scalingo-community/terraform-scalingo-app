@@ -78,13 +78,19 @@ variable "review_apps" {
   description = "Configuration of the review apps of the application."
   type = object({
     enabled                               = optional(bool, false)
+
+    # By default: delete review apps 0 hours after closing the PR
     delete_on_close_enabled               = optional(bool, true)
-    delete_stale_enabled                  = optional(bool, true)
     hours_before_delete_on_close          = optional(string, "0")
-    hours_before_delete_stale             = optional(string, "72")
+
+    # By default: delete review apps after 5 days of inactivity (= no new deployment)
+    delete_stale_enabled                  = optional(bool, true)
+    hours_before_delete_stale             = optional(string, "168") 
+
+    # By default: do not create review apps for PRs from forks
     automatic_creation_from_forks_allowed = optional(bool, false)
   })
-  default = null
+  default = {}
 }
 
 variable "additionnal_collaborators" {

@@ -23,7 +23,7 @@ resource "scalingo_scm_repo_link" "scm_repo_link" {
 
   # Due to a bug in the provider, we need to use the app id instead of the app name
   # Link to the issue : https://github.com/Scalingo/terraform-provider-scalingo/issues/153
-  app    = scalingo_app.app.id
+  app = scalingo_app.app.id
 
   source = each.value.repo_url
   auth_integration_uuid = (each.value.integration_uuid != null
@@ -34,11 +34,11 @@ resource "scalingo_scm_repo_link" "scm_repo_link" {
   auto_deploy_enabled = each.value.auto_deploy_enabled
   branch              = each.value.branch
 
-  deploy_review_apps_enabled   = var.review_apps.enabled
-  delete_on_close_enabled      = var.review_apps.delete_on_close_enabled
-  hours_before_delete_on_close = var.review_apps.hours_before_delete_on_close
-  delete_stale_enabled         = var.review_apps.delete_stale_enabled
-  hours_before_delete_stale    = var.review_apps.hours_before_delete_stale
-  # will be available in v2.1.0 :
-  # automatic_creation_from_forks_allowed = var.review_apps.automatic_creation_from_forks_allowed
+  # Configuration for review apps
+  deploy_review_apps_enabled            = var.review_apps.enabled
+  delete_on_close_enabled               = var.review_apps.delete_on_close_enabled
+  hours_before_delete_on_close          = var.review_apps.hours_before_delete_on_close
+  delete_stale_enabled                  = var.review_apps.delete_stale_enabled
+  hours_before_delete_stale             = var.review_apps.hours_before_delete_stale
+  automatic_creation_from_forks_allowed = var.review_apps.automatic_creation_from_forks_allowed
 }

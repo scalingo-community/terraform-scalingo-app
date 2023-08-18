@@ -10,8 +10,8 @@ resource "scalingo_app" "app" {
   stack_id    = data.scalingo_stack.stack.id
   force_https = !var.authorize_unsecure_http
 
-  sticky_sessions = var.sticky_sessions
-  router_logs     = var.router_logs
+  sticky_session = var.sticky_session
+  router_logs    = var.router_logs
 }
 
 resource "scalingo_container_type" "containers" {

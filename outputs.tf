@@ -7,7 +7,7 @@ output "app_id" {
 output "all_environment_variables" {
   description = "All environment variables of the Scalingo application (ones added by the terraform module and ones added by Scalingo add-ons)."
   value       = scalingo_app.app.all_environment
-  sensitive = true # Environment variables can contain sensitive information
+  sensitive   = true # Environment variables can contain sensitive information
 }
 
 output "url" {

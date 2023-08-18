@@ -30,21 +30,21 @@ variable "containers" {
 }
 
 variable "authorize_unsecure_http" {
-  description = "When true, Scalingo does not automatically redirect HTTP traffic to HTTPS"
+  description = "When true, Scalingo does not automatically redirect HTTP traffic to HTTPS. The default behavior is to redirect HTTP traffic to HTTPS (when value is `false`)"
   type        = bool
   default     = false
   nullable    = false
 }
 
 variable "router_logs" {
-  description = "When true, the router logs are included in the application logs."
+  description = "When true, the router logs are included in the application logs. (default: `false`)"
   type        = bool
   default     = false
   nullable    = false
 }
 
-variable "sticky_sessions" {
-  description = "When true, sticky sessions are enabled."
+variable "sticky_session" {
+  description = "When true, sticky sessions are enabled. (default: `false`)"
   type        = bool
   default     = false
   nullable    = false

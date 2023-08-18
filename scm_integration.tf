@@ -21,8 +21,6 @@ data "scalingo_scm_integration" "scm_integration" {
 resource "scalingo_scm_repo_link" "scm_repo_link" {
   for_each = local.scm_integration
 
-  # Due to a bug in the provider, we need to use the app id instead of the app name
-  # Link to the issue : https://github.com/Scalingo/terraform-provider-scalingo/issues/153
   app = scalingo_app.app.id
 
   source = each.value.repo_url
@@ -41,6 +39,4 @@ resource "scalingo_scm_repo_link" "scm_repo_link" {
   delete_stale_enabled                  = var.review_apps.delete_stale_enabled
   hours_before_delete_stale             = var.review_apps.hours_before_delete_stale
   automatic_creation_from_forks_allowed = var.review_apps.automatic_creation_from_forks_allowed
-
-  
 }

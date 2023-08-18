@@ -36,21 +36,19 @@ variable "authorize_unsecure_http" {
   nullable    = false
 }
 
-# router_logs and sticky_sessions are not yet supported by the provider, but will be in the future
-# see https://github.com/Scalingo/terraform-provider-scalingo/issues/158 for tracking progress
-# variable "router_logs" {
-#   description = "When true, the router logs are included in the application logs."
-#   type        = bool
-#   default     = false
-#   nullable    = false
-# }
+variable "router_logs" {
+  description = "When true, the router logs are included in the application logs."
+  type        = bool
+  default     = false
+  nullable    = false
+}
 
-# variable "sticky_sessions" {
-#   description = "When true, sticky sessions are enabled."
-#   type        = bool
-#   default     = false
-#   nullable    = false
-# }
+variable "sticky_sessions" {
+  description = "When true, sticky sessions are enabled."
+  type        = bool
+  default     = false
+  nullable    = false
+}
 
 variable "github_integration" {
   description = "Configuration of the GitHub integration of the application. Only one of github_integration or gitlab_integration can be set."

@@ -19,7 +19,7 @@ resource "scalingo_app" "app" {
 resource "scalingo_container_type" "containers" {
   for_each = var.containers
 
-  app    = scalingo_app.app.name
+  app    = scalingo_app.app.id
   name   = each.key
   amount = each.value.amount
   size   = each.value.size
@@ -29,7 +29,7 @@ resource "scalingo_container_type" "containers" {
 resource "scalingo_autoscaler" "autoscalers" {
   for_each = { for k, v in var.containers : k => v if v.autoscaler != null }
 
-  app            = scalingo_app.app.name
+  app            = scalingo_app.app.id
   container_type = each.key
   metric         = each.value.autoscaler.metric
   target         = each.value.autoscaler.target

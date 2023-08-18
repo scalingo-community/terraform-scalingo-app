@@ -41,4 +41,6 @@ resource "scalingo_scm_repo_link" "scm_repo_link" {
   delete_stale_enabled                  = var.review_apps.delete_stale_enabled
   hours_before_delete_stale             = var.review_apps.hours_before_delete_stale
   automatic_creation_from_forks_allowed = var.review_apps.automatic_creation_from_forks_allowed
+
+  
 }

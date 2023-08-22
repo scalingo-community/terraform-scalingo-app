@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.2.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.1.0...v0.2.0) (2023-08-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* change the app link between resources with .id instead of .name to comply with the updated docs of Scalingo provider
+
+### Features
+
+* add sticky_sessions and router_logs variables ([2d9f4bd](https://github.com/scalingo-community/terraform-scalingo-app/commit/2d9f4bd01ab0490c95cedc077ad23595f502d015))
+
+
+### Bug Fixes
+
+* change the app link between resources with .id instead of .name to comply with the updated docs of Scalingo provider ([349027d](https://github.com/scalingo-community/terraform-scalingo-app/commit/349027dfa2219a30d2e639c6ffe92c0ee783fe9b))
+* rename sticky_sessions variable ([9768ea1](https://github.com/scalingo-community/terraform-scalingo-app/commit/9768ea10c636916642ef2ff2f0186e740563f0dd))
+
+
+### Miscellaneous Chores
+
+* release 0.2.0 ([b8b4995](https://github.com/scalingo-community/terraform-scalingo-app/commit/b8b499570190cea33aabfc4befb43a7b9a684c58))
+
 ## 0.1.0 (2023-08-18)
 
 

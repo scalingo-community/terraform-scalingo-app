@@ -159,6 +159,12 @@ variable "domain" {
   description = "Main domain name of the application, known as \"canonical domain\" in Scalingo's dashboard. Note that SSL configuration must be completed through the dashboard."
   type        = string
   default     = null
+  nullable    = true
+
+  validation {
+    condition     = var.domain == null || can(length(regex("^([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", var.domain)) > 0)
+    error_message = "The domain name must be a valid domain name."
+  }
 }
 
 variable "domain_aliases" {
@@ -166,6 +172,14 @@ variable "domain_aliases" {
   type        = list(string)
   default     = []
   nullable    = false
+
+  validation {
+    condition = length([
+      for domain in var.domain_aliases :
+      domain if can(length(regex("^([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", domain)) == 0)
+    ]) == 0
+    error_message = "The list of domain names must contain only valid domain names."
+  }
 }
 
 variable "log_drains" {

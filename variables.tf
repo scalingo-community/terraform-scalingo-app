@@ -184,9 +184,22 @@ variable "domain_aliases" {
 
 variable "log_drains" {
   type = list(object({
-    type = string
-    url  = optional(string, "")
+    type         = string
+    url          = optional(string, "")
+    drain_region = optional(string, "")
+    addon        = optional(string, "")
+    host         = optional(string, "")
+    port         = optional(string, "")
+    token        = optional(string, "")
   }))
   default  = []
   nullable = false
+
+  validation {
+    condition = length([
+      for drain in var.log_drains :
+      drain if !contains(["elk", "appsignal", "logtail", "datadog", "ovh-graylog", "papertrail", "logtail", "syslog"], drain.type)
+    ]) == 0
+    error_message = "The list of log drains must contain only valid log drains type (elk/appsignal/logtail/datadog/ovh-graylog/papertrail/logtail/syslog)."
+  }
 }

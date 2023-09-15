@@ -7,5 +7,12 @@ resource "scalingo_log_drain" "log_drain" {
   app = scalingo_app.app.id
 
   type = each.value.type
-  url  = sensitive(each.value.url)
+
+  # Log drain parameters are different depending on the type
+  url          = sensitive(each.value.url)
+  drain_region = each.value.drain_region
+  addon        = each.value.addon
+  host         = each.value.host
+  port         = each.value.port
+  token        = sensitive(each.value.token)
 }

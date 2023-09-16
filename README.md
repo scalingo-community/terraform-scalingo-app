@@ -1,6 +1,42 @@
 # Terraform Module for Scalingo App 
 
-An opinionated Terraform module to provision an application and database very easily with Scalingo
+An opinionated Terraform module to provision an application and database very easily with Scalingo.
+
+## Example usage
+
+```tf
+module "my_app" {
+  source  = "scalingo-community/app/scalingo"
+
+  # Configure the name and the canonical domain of the application
+  name = "my-app"
+  domain = "my-app.example.com"
+
+  # Define environment variables
+  environment = {
+    FOO = "bar"
+  }
+
+  # Configure size and amount of containers "web"
+  containers = {
+    web = {
+      size = "S"
+      amount = 2
+    }
+  }
+
+  # Attach a free PostgreSQL database
+  addons = [{ provider = "postgresql", plan = "postgresql-sandbox" }]
+
+  # Configure log drains
+  log_drains = [{ type = "elk", url = "https://user:password@logstash.example.com" }]
+}
+```
+
+## Community
+
+Used in production by :
+- [1jeune1solution.gouv.fr](https://1jeune1solution.gouv.fr). ([source code](https://github.com/DNUM-SocialGouv/1j1s-front/blob/main/terraform/front.tf))
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

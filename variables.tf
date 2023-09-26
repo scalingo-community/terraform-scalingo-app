@@ -1,5 +1,6 @@
 variable "name" {
-  type = string
+  description = "Name of the application. Must be unique on Scalingo."
+  type        = string
 }
 
 variable "stack" {
@@ -183,11 +184,11 @@ variable "domain_aliases" {
 }
 
 variable "log_drains" {
+  description = "List of log_drain configuration to redirect logs from the application and addons to a log management service. Each configuration is automatically associated to the application and to every eligible addons."
   type = list(object({
     type         = string
     url          = optional(string, "")
     drain_region = optional(string, "")
-    addon        = optional(string, "")
     host         = optional(string, "")
     port         = optional(string, "")
     token        = optional(string, "")
@@ -201,5 +202,13 @@ variable "log_drains" {
       drain if !contains(["elk", "appsignal", "logtail", "datadog", "ovh-graylog", "papertrail", "logtail", "syslog"], drain.type)
     ]) == 0
     error_message = "The list of log drains must contain only valid log drains type (elk/appsignal/logtail/datadog/ovh-graylog/papertrail/logtail/syslog)."
+  }
+
+  validation {
+    condition = length([
+      for drain in var.log_drains :
+      drain if drain.type == "elk" && can(length(regex("^https?://([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", drain.url)) == 0)
+    ]) == 0
+    error_message = "Log drains of type \"elk\" must have a valid url."
   }
 }

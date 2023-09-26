@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.3.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.2.0...v0.3.0) (2023-09-26)
+
+
+### ✨ New features
+
+* add automatic log drains for addons ([#10](https://github.com/scalingo-community/terraform-scalingo-app/issues/10)) ([cff3966](https://github.com/scalingo-community/terraform-scalingo-app/commit/cff3966c56b4e3673fac1383b2cf18aed0c8d29c))
+* add new type of log_drains and validate input ([6cb4daa](https://github.com/scalingo-community/terraform-scalingo-app/commit/6cb4daa425e6833e9f2475e050db88e6b260b013))
+
+
+### 👷 Other changes
+
+* better readability for changelog ([60f9398](https://github.com/scalingo-community/terraform-scalingo-app/commit/60f93984a654136d1deb904a662de7efce79e312))
+* validate format of input domain variables ([f4f1765](https://github.com/scalingo-community/terraform-scalingo-app/commit/f4f1765402a61935ac41f8b818c3ab6b9d2e277d))
+
+
+### 📚 Documentation
+
+* add example usage in README ([eda67ef](https://github.com/scalingo-community/terraform-scalingo-app/commit/eda67ef8ffe280326b01d76a131bbe5b07be62e3))
+* update README ([bdfc591](https://github.com/scalingo-community/terraform-scalingo-app/commit/bdfc59136c34685a85ecbd2cf8f3b4d8907fbe05))
+
 ## [0.2.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.1.0...v0.2.0) (2023-08-22)
 
 

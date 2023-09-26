@@ -4,9 +4,11 @@ An opinionated Terraform module to provision an application and database very ea
 
 ## Example usage
 
+<!-- x-release-please-start-version -->
 ```tf
 module "my_app" {
   source  = "scalingo-community/app/scalingo"
+  version = "0.2.0"
 
   # Configure the name and the canonical domain of the application
   name = "my-app"
@@ -28,10 +30,11 @@ module "my_app" {
   # Attach a free PostgreSQL database
   addons = [{ provider = "postgresql", plan = "postgresql-sandbox" }]
 
-  # Configure log drains
+  # Configure log drains, will be auto-configured for app and every addons
   log_drains = [{ type = "elk", url = "https://user:password@logstash.example.com" }]
 }
 ```
+<!-- x-release-please-end -->
 
 ## Community
 

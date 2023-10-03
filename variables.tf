@@ -177,7 +177,7 @@ variable "domain_aliases" {
   validation {
     condition = length([
       for domain in var.domain_aliases :
-      domain if can(length(regex("^([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", domain)) > 0)
+      domain if !can(length(regex("^([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,6})$", domain)) == 0)
     ]) == 0
     error_message = "The list of domain names must contain only valid domain names."
   }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.3.0...v0.3.1) (2023-10-03)
+
+
+### 🐛 Bug fixes
+
+* domain_aliases validation incorrectly failed ([b142c73](https://github.com/scalingo-community/terraform-scalingo-app/commit/b142c73371c765eaf0f7c3f2c24ac8e157b36aed))
+
 ## [0.3.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.2.0...v0.3.0) (2023-09-26)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.3.2...v0.3.3) (2024-01-16)
+
+
+### 👷 Other changes
+
+* activate dependabot to automate dependencies update PRs ([f4b120c](https://github.com/scalingo-community/terraform-scalingo-app/commit/f4b120c3410f4b3b2e86b2066c89ecd0ae009dab))
+
 ## [0.3.2](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.3.1...v0.3.2) (2023-10-03)
 
 

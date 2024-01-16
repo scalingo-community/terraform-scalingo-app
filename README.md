@@ -8,7 +8,7 @@ An opinionated Terraform module to provision an application and database very ea
 ```tf
 module "my_app" {
   source  = "scalingo-community/app/scalingo"
-  version = "0.3.2"
+  version = "0.3.3"
 
   # Configure the name and the canonical domain of the application
   name = "my-app"

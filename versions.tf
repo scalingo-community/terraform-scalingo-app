@@ -4,7 +4,7 @@ terraform {
   required_providers {
     scalingo = {
       source  = "scalingo/scalingo"
-      version = "~> 2.2"
+      version = "~> 2.7"
     }
 
     environment = {

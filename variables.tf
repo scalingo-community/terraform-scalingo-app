@@ -134,27 +134,53 @@ variable "addons" {
   nullable = false
 }
 
-# TODO: implement notifier and alert
-#
-# variable "notifications" {
-#   type = list(object({
-#     name            = string
-#     type            = string
-#     active          = optional(bool, true)
-#     emails          = optional(list(string), [])
-#     send_all_alerts = optional(bool, false)
-#     send_all_events = optional(bool, false)
-#     events          = optional(list(string), [])
-#     webhook_url     = optional(string, "")
-#     container_alerts = object({
-#       limit                   = optional(number, 0.8)
-#       metric                  = optional(string, "cpu")
-#       duration_before_trigger = optional(string)
-#     })
-#   }))
-#   default  = []
-#   nullable = false
-# }
+variable "notifiers" {
+  description = "List of notification channels (email, slack, webhook, rocket_chat) for the application."
+  type = list(object({
+    name            = string
+    platform        = string
+    active          = optional(bool, true)
+    send_all_events = optional(bool, false)
+    send_all_alerts = optional(bool, false)
+    selected_events = optional(set(string), [])
+    emails          = optional(list(string), [])
+    webhook_url     = optional(string, "")
+  }))
+  default  = []
+  nullable = false
+
+  validation {
+    condition = length([
+      for n in var.notifiers :
+      n if !contains(["email", "slack", "webhook", "rocket_chat"], n.platform)
+    ]) == 0
+    error_message = "Notifier platform must be one of: email, slack, webhook, rocket_chat."
+  }
+}
+
+variable "alerts" {
+  description = "List of metric-based alerts for the application containers."
+  type = list(object({
+    container_type          = string
+    metric                  = string
+    limit                   = number
+    disabled                = optional(bool, false)
+    duration_before_trigger = optional(string)
+    remind_every            = optional(string)
+    send_when_below         = optional(bool, false)
+    notifiers               = optional(list(string), [])
+  }))
+  default  = []
+  nullable = false
+
+  validation {
+    condition = length([
+      for a in var.alerts :
+      a if !contains(["cpu", "ram", "swap", "rpm"], a.metric)
+    ]) == 0
+    error_message = "Alert metric must be one of: cpu, ram, swap, rpm."
+  }
+}
 
 variable "domain" {
   description = "Main domain name of the application, known as \"canonical domain\" in Scalingo's dashboard. Note that SSL configuration must be completed through the dashboard."

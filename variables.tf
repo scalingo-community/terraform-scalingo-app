@@ -3,6 +3,13 @@ variable "name" {
   type        = string
 }
 
+variable "hds_resource" {
+  description = "When true, the application is flagged as hosting health data (HDS compliance)."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 variable "stack" {
   description = "The stack to use for the app (default: \"scalingo-22\")."
   type        = string

@@ -9,8 +9,8 @@ variable "stack" {
   default     = "scalingo-22"
 
   validation {
-    condition     = contains(["scalingo-18", "scalingo-20", "scalingo-22"], var.stack)
-    error_message = "The stack value must be one of the following: scalingo-18, scalingo-20, scalingo-22"
+    condition     = contains(["scalingo-20", "scalingo-22", "scalingo-24"], var.stack)
+    error_message = "The stack value must be one of the following: scalingo-20, scalingo-22, scalingo-24"
   }
 }
 
@@ -102,7 +102,7 @@ variable "additionnal_collaborators" {
   validation {
     condition = length([
       for email in var.additionnal_collaborators :
-      email if regex("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", email) == false
+      email if regex("^([a-zA-Z0-9_\\-\\.\\+]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,63})$", email) == false
     ]) == 0
     error_message = "The list of emails must contain only valid emails."
   }
@@ -163,7 +163,7 @@ variable "domain" {
   nullable    = true
 
   validation {
-    condition     = var.domain == null || can(length(regex("^([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", var.domain)) > 0)
+    condition     = var.domain == null || can(length(regex("^([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,63})$", var.domain)) > 0)
     error_message = "The domain name must be a valid domain name."
   }
 }
@@ -177,7 +177,7 @@ variable "domain_aliases" {
   validation {
     condition = length([
       for domain in var.domain_aliases :
-      domain if !can(length(regex("^([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,6})$", domain)) == 0)
+      domain if !can(regex("^([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,63})$", domain))
     ]) == 0
     error_message = "The list of domain names must contain only valid domain names."
   }
@@ -207,8 +207,8 @@ variable "log_drains" {
   validation {
     condition = length([
       for drain in var.log_drains :
-      drain if drain.type == "elk" && can(length(regex("^https?://([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$", drain.url)) == 0)
+      drain if drain.type == "elk" && !can(regex("^https?://.+", drain.url))
     ]) == 0
-    error_message = "Log drains of type \"elk\" must have a valid url."
+    error_message = "Log drains of type \"elk\" must have a valid url (starting with http:// or https://)."
   }
 }

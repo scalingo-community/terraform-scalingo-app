@@ -12,6 +12,13 @@ resource "scalingo_app" "app" {
 
   sticky_session = var.sticky_session
   router_logs    = var.router_logs
+
+  lifecycle {
+    precondition {
+      condition     = !(var.github_integration != null && var.gitlab_integration != null)
+      error_message = "Only one of github_integration or gitlab_integration can be set, not both."
+    }
+  }
 }
 
 resource "scalingo_container_type" "containers" {

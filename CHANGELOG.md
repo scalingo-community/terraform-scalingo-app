@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.3.2...v0.4.0) (2026-03-23)
+
+
+### Features
+
+* update stack validation, relax regexes, enforce SCM exclusivity, add CI ([d688dd9](https://github.com/scalingo-community/terraform-scalingo-app/commit/d688dd91f5d67e8ef511de4969e90caa5ce9e91e))
+
+
+### Bug Fixes
+
+* trim→trimprefix, duplicate logtail, env var description, duplicate moved block, terraform-docs version ([05b763e](https://github.com/scalingo-community/terraform-scalingo-app/commit/05b763e953fb75001ee23aaef2316859528d7c3c))
+
 ## [0.3.2](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.3.1...v0.3.2) (2023-10-03)
 
 

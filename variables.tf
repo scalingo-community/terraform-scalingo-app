@@ -109,7 +109,7 @@ variable "additionnal_collaborators" {
 }
 
 variable "environment" {
-  description = "Map of environment variables to set on the application. Note that value of environment variables can be null or empty."
+  description = "Map of environment variables to set on the application. Values must not be null or empty."
   type        = map(string)
   default     = null
 
@@ -199,9 +199,9 @@ variable "log_drains" {
   validation {
     condition = length([
       for drain in var.log_drains :
-      drain if !contains(["elk", "appsignal", "logtail", "datadog", "ovh-graylog", "papertrail", "logtail", "syslog"], drain.type)
+      drain if !contains(["elk", "appsignal", "logtail", "datadog", "ovh-graylog", "papertrail", "syslog"], drain.type)
     ]) == 0
-    error_message = "The list of log drains must contain only valid log drains type (elk/appsignal/logtail/datadog/ovh-graylog/papertrail/logtail/syslog)."
+    error_message = "The list of log drains must contain only valid log drains type (elk/appsignal/logtail/datadog/ovh-graylog/papertrail/syslog)."
   }
 
   validation {

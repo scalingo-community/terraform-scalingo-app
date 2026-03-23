@@ -26,10 +26,6 @@ moved {
   to   = scalingo_log_drain.app["papertrail"]
 }
 moved {
-  from = scalingo_log_drain.log_drain["logtail"]
-  to   = scalingo_log_drain.app["logtail"]
-}
-moved {
   from = scalingo_log_drain.log_drain["syslog"]
   to   = scalingo_log_drain.app["syslog"]
 }

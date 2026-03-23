@@ -17,7 +17,7 @@ output "url" {
 
 output "domain" {
   description = "Hostname to use to access the application. Same as the `url` output but without the `https://`."
-  value       = trim((var.domain != null ? "https://${var.domain}" : scalingo_app.app.url), "https://")
+  value       = trimprefix((var.domain != null ? "https://${var.domain}" : scalingo_app.app.url), "https://")
 }
 
 output "origin_domain" {

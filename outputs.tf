@@ -20,6 +20,11 @@ output "domain" {
   value       = trimprefix((var.domain != null ? "https://${var.domain}" : scalingo_app.app.url), "https://")
 }
 
+output "base_url" {
+  description = "Default URL of the Scalingo application (without canonical domain override)."
+  value       = scalingo_app.app.base_url
+}
+
 output "origin_domain" {
   description = "The FQDN of the Scalingo application (`<your_app_name>.<region>.scalingo.io`). Same as the `domain` output if you have not set a canonical domain."
   value       = "${scalingo_app.app.name}.${local.current_region}.scalingo.io"

@@ -12,6 +12,7 @@ resource "scalingo_app" "app" {
 
   sticky_session = var.sticky_session
   router_logs    = var.router_logs
+  hds_resource   = var.hds_resource
 
   lifecycle {
     precondition {

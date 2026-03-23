@@ -157,7 +157,7 @@ variable "addons" {
 # }
 
 variable "domain" {
-  description = "Main domain name of the application, known as \"canonical domain\" in Scalingo's dashboard. Note that SSL configuration must be completed through the dashboard."
+  description = "Main domain name of the application, known as \"canonical domain\" in Scalingo's dashboard."
   type        = string
   default     = null
   nullable    = true
@@ -166,6 +166,13 @@ variable "domain" {
     condition     = var.domain == null || can(length(regex("^([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,63})$", var.domain)) > 0)
     error_message = "The domain name must be a valid domain name."
   }
+}
+
+variable "letsencrypt" {
+  description = "Enable Let's Encrypt automatic TLS for the canonical domain. Set to false when using a custom certificate."
+  type        = bool
+  default     = true
+  nullable    = false
 }
 
 variable "domain_aliases" {

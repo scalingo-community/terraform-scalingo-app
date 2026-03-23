@@ -5,6 +5,7 @@ data "scalingo_stack" "stack" {
 resource "scalingo_app" "app" {
   name = var.name
 
+  project_id  = var.project_id
   environment = var.environment
 
   stack_id    = data.scalingo_stack.stack.id

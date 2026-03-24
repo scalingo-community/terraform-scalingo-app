@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.4.0...v0.5.0) (2026-03-24)
+
+
+### Features
+
+* expose base_url output from scalingo_app ([#22](https://github.com/scalingo-community/terraform-scalingo-app/issues/22)) ([9ff17ab](https://github.com/scalingo-community/terraform-scalingo-app/commit/9ff17ab43dd9d30979e35c637b41b7fefc93b695))
+* support hds_resource flag for health data hosting compliance ([#18](https://github.com/scalingo-community/terraform-scalingo-app/issues/18)) ([0d0440a](https://github.com/scalingo-community/terraform-scalingo-app/commit/0d0440ad499fa5b12c369f47114cc00768e8c192))
+
 ## [0.4.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.3.2...v0.4.0) (2026-03-23)
 
 

@@ -10,6 +10,12 @@ variable "hds_resource" {
   nullable    = false
 }
 
+variable "project_id" {
+  description = "ID of the Scalingo project to associate the application with."
+  type        = string
+  default     = null
+}
+
 variable "stack" {
   description = "The stack to use for the app (default: \"scalingo-22\")."
   type        = string

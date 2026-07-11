@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.4.0...v0.5.0) (2026-07-11)
+
+
+### Features
+
+* expose base_url output from scalingo_app ([#22](https://github.com/scalingo-community/terraform-scalingo-app/issues/22)) ([9ff17ab](https://github.com/scalingo-community/terraform-scalingo-app/commit/9ff17ab43dd9d30979e35c637b41b7fefc93b695))
+* implement notifiers and alerts ([#21](https://github.com/scalingo-community/terraform-scalingo-app/issues/21)) ([cd9e08c](https://github.com/scalingo-community/terraform-scalingo-app/commit/cd9e08ce445d38529ac3177c145a022bddda5f81))
+* support hds_resource flag for health data hosting compliance ([#18](https://github.com/scalingo-community/terraform-scalingo-app/issues/18)) ([0d0440a](https://github.com/scalingo-community/terraform-scalingo-app/commit/0d0440ad499fa5b12c369f47114cc00768e8c192))
+* support letsencrypt_enabled on canonical domain ([#19](https://github.com/scalingo-community/terraform-scalingo-app/issues/19)) ([ced3dc1](https://github.com/scalingo-community/terraform-scalingo-app/commit/ced3dc118afdba3bb141531b8aa71ee54c9eaeac))
+* support limited (read-only) collaborators ([#20](https://github.com/scalingo-community/terraform-scalingo-app/issues/20)) ([6338e63](https://github.com/scalingo-community/terraform-scalingo-app/commit/6338e63fa519ad316798ab98d4faa03ed72fc58c))
+* support project_id to associate app with a Scalingo project ([#17](https://github.com/scalingo-community/terraform-scalingo-app/issues/17)) ([cffd7e1](https://github.com/scalingo-community/terraform-scalingo-app/commit/cffd7e18ce51dd1df224a7b8fc90f32a318dc701))
+
 ## [0.4.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.3.2...v0.4.0) (2026-03-23)
 
 

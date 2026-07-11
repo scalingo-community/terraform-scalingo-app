@@ -32,7 +32,19 @@ resource "scalingo_alert" "alerts" {
   remind_every            = each.value.remind_every
   send_when_below         = each.value.send_when_below
 
+  # The conditional avoids a cryptic "invalid index" error when a name is
+  # unknown: the precondition below reports it with an explicit message.
   notifiers = [
-    for name in each.value.notifiers : scalingo_notifier.notifiers[name].id
+    for name in each.value.notifiers :
+    contains(keys(scalingo_notifier.notifiers), name) ? scalingo_notifier.notifiers[name].id : null
   ]
+
+  lifecycle {
+    precondition {
+      condition = alltrue([
+        for name in each.value.notifiers : contains([for n in var.notifiers : n.name], name)
+      ])
+      error_message = "Alert on ${each.value.container_type}/${each.value.metric} references a notifier name that does not exist in var.notifiers."
+    }
+  }
 }

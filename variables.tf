@@ -159,7 +159,7 @@ variable "notifiers" {
 }
 
 variable "alerts" {
-  description = "List of metric-based alerts for the application containers."
+  description = "List of metric-based alerts for the application containers. Only one alert per (container_type, metric) pair is supported. `duration_before_trigger` and `remind_every` are duration strings (e.g. \"5m\", \"1h\"). Each entry of `notifiers` must match the `name` of an entry in `var.notifiers`."
   type = list(object({
     container_type          = string
     metric                  = string
@@ -179,6 +179,13 @@ variable "alerts" {
       a if !contains(["cpu", "ram", "swap", "rpm"], a.metric)
     ]) == 0
     error_message = "Alert metric must be one of: cpu, ram, swap, rpm."
+  }
+
+  validation {
+    condition = length(var.alerts) == length(distinct([
+      for a in var.alerts : "${a.container_type}-${a.metric}"
+    ]))
+    error_message = "Only one alert per (container_type, metric) pair is supported."
   }
 }
 

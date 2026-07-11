@@ -22,4 +22,11 @@ resource "scalingo_collaborator" "limited_collaborators" {
   app     = scalingo_app.app.id
   email   = sensitive(each.value)
   limited = true
+
+  lifecycle {
+    precondition {
+      condition     = length(setintersection(toset(var.additionnal_collaborators), toset(var.limited_collaborators))) == 0
+      error_message = "An email cannot be listed in both additionnal_collaborators and limited_collaborators."
+    }
+  }
 }

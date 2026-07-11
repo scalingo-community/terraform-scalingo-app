@@ -115,6 +115,21 @@ variable "additionnal_collaborators" {
   }
 }
 
+variable "limited_collaborators" {
+  description = "List of emails of collaborators with limited (read-only) access to the application."
+  type        = list(string)
+  default     = []
+  nullable    = false
+
+  validation {
+    condition = length([
+      for email in var.limited_collaborators :
+      email if regex("^([a-zA-Z0-9_\\-\\.\\+]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,63})$", email) == false
+    ]) == 0
+    error_message = "The list of emails must contain only valid emails."
+  }
+}
+
 variable "environment" {
   description = "Map of environment variables to set on the application. Values must not be null or empty."
   type        = map(string)

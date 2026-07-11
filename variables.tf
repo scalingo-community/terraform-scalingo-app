@@ -162,6 +162,25 @@ variable "addons" {
   nullable = false
 }
 
+variable "pricing" {
+  description = "Manually entered Scalingo rates used to compute the `estimated_monthly_cost` output. `container_sizes` maps a container size (e.g. \"S\", \"M\", \"L\") to its monthly price, `addon_plans` maps an addon plan (e.g. \"postgresql-starter-512\") to its monthly price. Resources whose size or plan is missing from these maps are excluded from the total and reported in the `unpriced` attribute of the output."
+  type = object({
+    currency        = optional(string, "EUR")
+    container_sizes = optional(map(number), {})
+    addon_plans     = optional(map(number), {})
+  })
+  default  = {}
+  nullable = false
+
+  validation {
+    condition = alltrue(concat(
+      [for size, price in var.pricing.container_sizes : price >= 0],
+      [for plan, price in var.pricing.addon_plans : price >= 0]
+    ))
+    error_message = "Prices in pricing.container_sizes and pricing.addon_plans must be positive numbers."
+  }
+}
+
 variable "notifiers" {
   description = "List of notification channels (email, slack, webhook, rocket_chat) for the application."
   type = list(object({

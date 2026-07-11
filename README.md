@@ -36,6 +36,36 @@ module "my_app" {
 ```
 <!-- x-release-please-end -->
 
+## Cost estimation (FinOps)
+
+The module can compute an estimation of the monthly cost of the resources it manages. Since Scalingo does not expose a pricing API, the rates are entered manually through the `pricing` variable (take them from [scalingo.com/pricing](https://scalingo.com/pricing) or from your own contract):
+
+```tf
+module "my_app" {
+  # ...
+
+  pricing = {
+    currency = "EUR"
+    # monthly price of each container size in use
+    container_sizes = {
+      S = 14.40
+      M = 28.80
+      L = 57.60
+    }
+    # monthly price of each addon plan in use
+    addon_plans = {
+      postgresql-starter-512 = 14.40
+    }
+  }
+}
+
+output "monthly_cost" {
+  value = module.my_app.estimated_monthly_cost
+}
+```
+
+The `estimated_monthly_cost` output contains a `total` (and a `total_max` when autoscalers are configured, computed with `max_containers`), a per-container and per-addon breakdown, and the list of `unpriced` sizes/plans that are in use but missing from `pricing` (they are excluded from the totals).
+
 ## Community
 
 Used in production by :
@@ -88,6 +118,7 @@ Used in production by :
 | <a name="input_log_drains"></a> [log\_drains](#input\_log\_drains) | List of log\_drain configuration to redirect logs from the application and addons to a log management service. Each configuration is automatically associated to the application and to every eligible addons. | <pre>list(object({<br/>    type         = string<br/>    url          = optional(string, "")<br/>    drain_region = optional(string, "")<br/>    host         = optional(string, "")<br/>    port         = optional(string, "")<br/>    token        = optional(string, "")<br/>  }))</pre> | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the application. Must be unique on Scalingo. | `string` | n/a | yes |
 | <a name="input_notifiers"></a> [notifiers](#input\_notifiers) | List of notification channels (email, slack, webhook, rocket\_chat) for the application. | <pre>list(object({<br/>    name            = string<br/>    platform        = string<br/>    active          = optional(bool, true)<br/>    send_all_events = optional(bool, false)<br/>    send_all_alerts = optional(bool, false)<br/>    selected_events = optional(set(string), [])<br/>    emails          = optional(list(string), [])<br/>    webhook_url     = optional(string, "")<br/>  }))</pre> | `[]` | no |
+| <a name="input_pricing"></a> [pricing](#input\_pricing) | Manually entered Scalingo rates used to compute the `estimated_monthly_cost` output. `container_sizes` maps a container size (e.g. "S", "M", "L") to its monthly price, `addon_plans` maps an addon plan (e.g. "postgresql-starter-512") to its monthly price. Resources whose size or plan is missing from these maps are excluded from the total and reported in the `unpriced` attribute of the output. | <pre>object({<br/>    currency        = optional(string, "EUR")<br/>    container_sizes = optional(map(number), {})<br/>    addon_plans     = optional(map(number), {})<br/>  })</pre> | `{}` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | ID of the Scalingo project to associate the application with. | `string` | `null` | no |
 | <a name="input_review_apps"></a> [review\_apps](#input\_review\_apps) | Configuration of the review apps of the application. | <pre>object({<br/>    enabled = optional(bool, false)<br/><br/>    # By default: delete review apps 0 hours after closing the PR<br/>    delete_on_close_enabled      = optional(bool, true)<br/>    hours_before_delete_on_close = optional(string, "0")<br/><br/>    # By default: delete review apps after 5 days of inactivity (= no new deployment)<br/>    delete_stale_enabled      = optional(bool, true)<br/>    hours_before_delete_stale = optional(string, "168")<br/><br/>    # By default: do not create review apps for PRs from forks<br/>    automatic_creation_from_forks_allowed = optional(bool, false)<br/>  })</pre> | `{}` | no |
 | <a name="input_router_logs"></a> [router\_logs](#input\_router\_logs) | When true, the router logs are included in the application logs. (default: `false`) | `bool` | `false` | no |
@@ -102,6 +133,7 @@ Used in production by :
 | <a name="output_app_id"></a> [app\_id](#output\_app\_id) | ID of the Scalingo application. |
 | <a name="output_base_url"></a> [base\_url](#output\_base\_url) | Default URL of the Scalingo application (without canonical domain override). |
 | <a name="output_domain"></a> [domain](#output\_domain) | Hostname to use to access the application. Same as the `url` output but without the `https://`. |
+| <a name="output_estimated_monthly_cost"></a> [estimated\_monthly\_cost](#output\_estimated\_monthly\_cost) | Estimated monthly cost of the resources managed by this module, computed from the rates manually provided in `var.pricing`. `total` uses the configured amount of containers (or `min_containers` when an autoscaler is set) while `total_max` uses `max_containers`. Resources whose size or plan is missing from `var.pricing` are excluded from the totals and listed in `unpriced`. |
 | <a name="output_git_url"></a> [git\_url](#output\_git\_url) | Hostname to use to deploy code with Git + SSH. |
 | <a name="output_origin_domain"></a> [origin\_domain](#output\_origin\_domain) | The FQDN of the Scalingo application (`<your_app_name>.<region>.scalingo.io`). Same as the `domain` output if you have not set a canonical domain. |
 | <a name="output_region"></a> [region](#output\_region) | Region where the application is deployed. |

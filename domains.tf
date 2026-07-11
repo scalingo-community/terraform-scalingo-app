@@ -5,9 +5,7 @@ resource "scalingo_domain" "canonical_domain" {
   canonical   = true
   common_name = var.domain
 
-  # Attributes not supported by the provider on v2.2 :
-  # tlscert - optional: SSL Certificate you want to associate with the domain
-  # tlskey - optional: Private key used to create the SSL certificate
+  letsencrypt_enabled = var.letsencrypt
 }
 
 resource "scalingo_domain" "domain_aliases" {

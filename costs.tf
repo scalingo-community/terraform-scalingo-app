@@ -3,13 +3,22 @@
 # `estimated_monthly_cost` output).
 
 locals {
+  # Public rates shipped with the module (see pricing_defaults.tf, kept up to
+  # date by the "Update pricing" workflow), overridable entry by entry through
+  # the `pricing` variable (e.g. negotiated rates).
+  effective_pricing = {
+    currency        = var.pricing.currency
+    container_sizes = merge(local.default_pricing.container_sizes, var.pricing.container_sizes)
+    addon_plans     = merge(local.default_pricing.addon_plans, var.pricing.addon_plans)
+  }
+
   # When an autoscaler is configured, the amount of running containers varies
   # between min_containers and max_containers: the cost is estimated as a
   # range. Otherwise min and max are both the configured amount.
   _container_pricing_inputs = {
     for name, container in var.containers : name => {
       size       = container.size
-      unit_price = try(var.pricing.container_sizes[container.size], null)
+      unit_price = try(local.effective_pricing.container_sizes[container.size], null)
       amount     = container.autoscaler != null ? container.autoscaler.min_containers : container.amount
       amount_max = container.autoscaler != null ? container.autoscaler.max_containers : container.amount
     }
@@ -25,7 +34,7 @@ locals {
   addon_costs = {
     for provider, addon in { for a in var.addons : a.provider => a } : provider => {
       plan         = addon.plan
-      monthly_cost = try(var.pricing.addon_plans[addon.plan], null)
+      monthly_cost = try(local.effective_pricing.addon_plans[addon.plan], null)
     }
   }
 

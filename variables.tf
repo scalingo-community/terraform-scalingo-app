@@ -163,7 +163,7 @@ variable "addons" {
 }
 
 variable "pricing" {
-  description = "Manually entered Scalingo rates used to compute the `estimated_monthly_cost` output. `container_sizes` maps a container size (e.g. \"S\", \"M\", \"L\") to its monthly price, `addon_plans` maps an addon plan (e.g. \"postgresql-starter-512\") to its monthly price. Resources whose size or plan is missing from these maps are excluded from the total and reported in the `unpriced` attribute of the output."
+  description = "Overrides of the Scalingo rates used to compute the `estimated_monthly_cost` output. The module ships with the public rates of the osc-fr1 region (see `pricing_defaults.tf`); use this variable to override them entry by entry, e.g. with negotiated rates or the rates of another region. `container_sizes` maps a container size (e.g. \"S\", \"M\", \"L\") to its monthly price, `addon_plans` maps an addon plan (e.g. \"postgresql-starter-512\") to its monthly price. Resources whose size or plan has no known rate are excluded from the total and reported in the `unpriced` attribute of the output."
   type = object({
     currency        = optional(string, "EUR")
     container_sizes = optional(map(number), {})

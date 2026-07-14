@@ -35,6 +35,21 @@ output "git_url" {
   value       = scalingo_app.app.git_url
 }
 
+output "estimated_monthly_cost" {
+  description = "Estimated monthly cost of the resources managed by this module, computed from the public Scalingo rates shipped with the module (see `pricing_defaults.tf`), optionally overridden through `var.pricing`. `total` uses the configured amount of containers (or `min_containers` when an autoscaler is set) while `total_max` uses `max_containers`. Resources whose size or plan has no known rate are excluded from the totals and listed in `unpriced`."
+  value = {
+    currency   = local.effective_pricing.currency
+    total      = local.estimated_monthly_cost
+    total_max  = local.estimated_monthly_cost_max
+    containers = local.container_costs
+    addons     = local.addon_costs
+    unpriced = {
+      container_sizes = local.unpriced_container_sizes
+      addon_plans     = local.unpriced_addon_plans
+    }
+  }
+}
+
 output "region" {
   description = "Region where the application is deployed."
   value       = local.current_region

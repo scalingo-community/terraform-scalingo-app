@@ -6,5 +6,10 @@ terraform {
       source  = "scalingo/scalingo"
       version = "~> 2.7"
     }
+
+    environment = {
+      source  = "eppo/environment"
+      version = "~> 1.3"
+    }
   }
 }

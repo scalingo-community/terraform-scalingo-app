@@ -11,12 +11,6 @@ mock_provider "scalingo" {
     }
   }
 
-  mock_data "scalingo_region" {
-    defaults = {
-      name = "osc-fr1"
-    }
-  }
-
   mock_resource "scalingo_app" {
     defaults = {
       id       = "app-test"
@@ -30,7 +24,8 @@ mock_provider "scalingo" {
 
 run "outputs_without_canonical_domain" {
   variables {
-    name = "test-app"
+    name   = "test-app"
+    region = "osc-fr1"
   }
 
   assert {
@@ -57,6 +52,7 @@ run "outputs_without_canonical_domain" {
 run "outputs_with_canonical_domain" {
   variables {
     name   = "test-app"
+    region = "osc-fr1"
     domain = "www.example.com"
   }
 

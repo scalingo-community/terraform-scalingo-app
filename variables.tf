@@ -27,6 +27,12 @@ variable "stack" {
   }
 }
 
+variable "region" {
+  description = "Scalingo region where to deploy the application. If not provided, uses the provider's configured region."
+  type        = string
+  default     = null
+}
+
 variable "containers" {
   description = "Configuration of the containers of the application."
   type = map(object({

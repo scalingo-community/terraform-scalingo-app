@@ -143,7 +143,7 @@ variable "environment" {
 
   # validate that the map does not contain any null and empty values
   validation {
-    condition = length([
+    condition = var.environment == null || length([
       for key, value in var.environment :
       key if value == null || value == ""
     ]) == 0

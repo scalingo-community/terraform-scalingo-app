@@ -1,7 +1,6 @@
-data "environment_variables" "scalingo_region_env" {
-  filter = "^SCALINGO_REGION"
+data "scalingo_region" "current" {
 }
 
 locals {
-  current_region = lookup(data.environment_variables.scalingo_region_env.items, "SCALINGO_REGION", null)
+  current_region = data.scalingo_region.current.name
 }

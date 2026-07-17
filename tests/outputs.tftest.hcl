@@ -11,6 +11,12 @@ mock_provider "scalingo" {
     }
   }
 
+  mock_data "scalingo_region" {
+    defaults = {
+      name = "osc-fr1"
+    }
+  }
+
   mock_resource "scalingo_app" {
     defaults = {
       id       = "app-test"
@@ -18,16 +24,6 @@ mock_provider "scalingo" {
       url      = "https://test-app.osc-fr1.scalingo.io"
       base_url = "https://test-app.osc-fr1.scalingo.io"
       git_url  = "git@ssh.osc-fr1.scalingo.com:test-app.git"
-    }
-  }
-}
-
-mock_provider "environment" {
-  mock_data "environment_variables" {
-    defaults = {
-      items = {
-        SCALINGO_REGION = "osc-fr1"
-      }
     }
   }
 }

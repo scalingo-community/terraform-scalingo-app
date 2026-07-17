@@ -11,6 +11,17 @@ mock_provider "scalingo" {
     }
   }
 
+  mock_data "scalingo_region" {
+    defaults = {
+      id           = "region-osc-fr1"
+      api          = "https://api.osc-fr1.scalingo.com"
+      dashboard    = "https://dashboard.scalingo.com"
+      database_api = "https://db-api.osc-fr1.scalingo.com"
+      display_name = "France (Paris)"
+      ssh          = "ssh.osc-fr1.scalingo.com"
+    }
+  }
+
   mock_resource "scalingo_app" {
     defaults = {
       id       = "app-test"

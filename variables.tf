@@ -28,9 +28,8 @@ variable "stack" {
 }
 
 variable "region" {
-  description = "Scalingo region where to deploy the application. If not provided, uses the provider's configured region."
+  description = "Scalingo region where to deploy the application (e.g., 'osc-fr1'). Can be set via TF_VAR_region environment variable."
   type        = string
-  default     = null
 }
 
 variable "containers" {

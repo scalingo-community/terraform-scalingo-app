@@ -5,8 +5,16 @@
 # is needed, resources are created in-memory only.
 
 mock_provider "scalingo" {
+  mock_data "scalingo_stack" {
+    defaults = {
+      id = "stack-default"
+    }
+  }
+
   mock_resource "scalingo_app" {
     defaults = {
+      id       = "app-test"
+      name     = "test-app"
       url      = "https://test-app.osc-fr1.scalingo.io"
       base_url = "https://test-app.osc-fr1.scalingo.io"
       git_url  = "git@ssh.osc-fr1.scalingo.com:test-app.git"

@@ -60,6 +60,23 @@ run "outputs_without_canonical_domain" {
   }
 }
 
+run "outputs_in_another_region" {
+  variables {
+    name   = "test-app"
+    region = "osc-secnum-fr1"
+  }
+
+  assert {
+    condition     = output.region == "osc-secnum-fr1"
+    error_message = "The region output must follow the region variable, not the default."
+  }
+
+  assert {
+    condition     = output.origin_domain == "test-app.osc-secnum-fr1.scalingo.io"
+    error_message = "The origin_domain output must be built with the configured region."
+  }
+}
+
 run "outputs_with_canonical_domain" {
   variables {
     name   = "test-app"

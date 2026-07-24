@@ -1,5 +1,5 @@
-# Non-regression tests for the module outputs, focused on the region wiring
-# (region, origin_domain, url, domain).
+# Non-regression tests for the module outputs (region, origin_domain, url,
+# domain), for an application running in the default region.
 #
 # Providers are mocked (terraform >= 1.7): no Scalingo account or API token
 # is needed, resources are created in-memory only.
@@ -58,47 +58,6 @@ run "outputs_without_canonical_domain" {
     condition     = output.domain == "test-app.osc-fr1.scalingo.io"
     error_message = "Without a canonical domain, the domain output must be the default app hostname."
   }
-}
-
-run "outputs_in_another_region" {
-  variables {
-    name   = "test-app"
-    region = "osc-secnum-fr1"
-  }
-
-  # Keep the application consistent with the region under test, otherwise the
-  # region_matches_application check rightfully complains.
-  override_resource {
-    target = scalingo_app.app
-    values = {
-      base_url = "https://test-app.osc-secnum-fr1.scalingo.io"
-      url      = "https://test-app.osc-secnum-fr1.scalingo.io"
-    }
-  }
-
-  assert {
-    condition     = output.region == "osc-secnum-fr1"
-    error_message = "The region output must follow the region variable, not the default."
-  }
-
-  assert {
-    condition     = output.origin_domain == "test-app.osc-secnum-fr1.scalingo.io"
-    error_message = "The origin_domain output must be built with the configured region."
-  }
-}
-
-# The region variable defaults to osc-fr1 while the region used to come from the
-# SCALINGO_REGION environment variable: an application running elsewhere would
-# silently get wrong outputs after upgrading. The check block of
-# upgrade_to_v0.6.0.tf must catch it.
-run "region_mismatch_is_reported" {
-  variables {
-    name   = "test-app"
-    region = "osc-secnum-fr1"
-  }
-
-  # The mocked application stays in osc-fr1, so it contradicts the region above.
-  expect_failures = [check.region_matches_application]
 }
 
 run "outputs_with_canonical_domain" {

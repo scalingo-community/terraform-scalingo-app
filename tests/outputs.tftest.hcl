@@ -11,11 +11,21 @@ mock_provider "scalingo" {
     }
   }
 
+  mock_data "scalingo_region" {
+    defaults = {
+      id           = "region-osc-fr1"
+      api          = "https://api.osc-fr1.scalingo.com"
+      dashboard    = "https://dashboard.scalingo.com"
+      database_api = "https://db-api.osc-fr1.scalingo.com"
+      display_name = "France (Paris)"
+      ssh          = "ssh.osc-fr1.scalingo.com"
+    }
+  }
+
   mock_resource "scalingo_app" {
     defaults = {
       id       = "app-test"
       name     = "test-app"
-      region   = "osc-fr1"
       url      = "https://test-app.osc-fr1.scalingo.io"
       base_url = "https://test-app.osc-fr1.scalingo.io"
       git_url  = "git@ssh.osc-fr1.scalingo.com:test-app.git"
@@ -25,7 +35,8 @@ mock_provider "scalingo" {
 
 run "outputs_without_canonical_domain" {
   variables {
-    name = "test-app"
+    name   = "test-app"
+    region = "osc-fr1"
   }
 
   assert {
@@ -52,6 +63,7 @@ run "outputs_without_canonical_domain" {
 run "outputs_with_canonical_domain" {
   variables {
     name   = "test-app"
+    region = "osc-fr1"
     domain = "www.example.com"
   }
 

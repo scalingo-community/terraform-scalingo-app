@@ -27,6 +27,13 @@ variable "stack" {
   }
 }
 
+variable "region" {
+  description = "Scalingo region where the application is deployed (default: \"osc-fr1\"). Must match the region configured on the Scalingo provider: the `region` and `origin_domain` outputs are derived from it. Set it explicitly if you deploy to another region such as \"osc-secnum-fr1\"."
+  type        = string
+  default     = "osc-fr1"
+  nullable    = false
+}
+
 variable "containers" {
   description = "Configuration of the containers of the application."
   type = map(object({

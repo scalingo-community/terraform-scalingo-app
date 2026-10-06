@@ -6,6 +6,14 @@ output:
 # see: https://terraform-docs.io/user-guide/configuration/formatter
 formatter: markdown table
 
+# see: https://terraform-docs.io/user-guide/configuration/version/
+version: ">= 0.24.0"
+
+# see: https://terraform-docs.io/user-guide/configuration/sort/
+sort:
+  enabled: true
+  by: required
+
 # see: https://terraform-docs.io/user-guide/configuration/sections/
 sections:
   show:

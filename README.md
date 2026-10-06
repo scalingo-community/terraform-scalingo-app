@@ -45,7 +45,7 @@ Used in production by :
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0, < 2.0.0 |
 | <a name="requirement_environment"></a> [environment](#requirement\_environment) | ~> 1.3 |
 | <a name="requirement_scalingo"></a> [scalingo](#requirement\_scalingo) | ~> 2.7 |
@@ -53,7 +53,7 @@ Used in production by :
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [scalingo_addon.addons](https://registry.terraform.io/providers/scalingo/scalingo/latest/docs/resources/addon) | resource |
 | [scalingo_alert.alerts](https://registry.terraform.io/providers/scalingo/scalingo/latest/docs/resources/alert) | resource |
 | [scalingo_app.app](https://registry.terraform.io/providers/scalingo/scalingo/latest/docs/resources/app) | resource |
@@ -71,7 +71,8 @@ Used in production by :
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
+| <a name="input_name"></a> [name](#input\_name) | Name of the application. Must be unique on Scalingo. | `string` | n/a | yes |
 | <a name="input_additionnal_collaborators"></a> [additionnal\_collaborators](#input\_additionnal\_collaborators) | List of emails of collaborators that have admin rights for the application | `list(string)` | `[]` | no |
 | <a name="input_addons"></a> [addons](#input\_addons) | List of addons to add to the application | <pre>list(object({<br/>    provider          = string<br/>    plan              = string<br/>    database_features = optional(list(string))<br/>  }))</pre> | `[]` | no |
 | <a name="input_alerts"></a> [alerts](#input\_alerts) | List of metric-based alerts for the application containers. Only one alert per (container\_type, metric) pair is supported. `duration_before_trigger` and `remind_every` are duration strings (e.g. "5m", "1h"). Each entry of `notifiers` must match the `name` of an entry in `var.notifiers`. | <pre>list(object({<br/>    container_type          = string<br/>    metric                  = string<br/>    limit                   = number<br/>    disabled                = optional(bool, false)<br/>    duration_before_trigger = optional(string)<br/>    remind_every            = optional(string)<br/>    send_when_below         = optional(bool, false)<br/>    notifiers               = optional(list(string), [])<br/>  }))</pre> | `[]` | no |
@@ -86,18 +87,17 @@ Used in production by :
 | <a name="input_letsencrypt"></a> [letsencrypt](#input\_letsencrypt) | Enable Let's Encrypt automatic TLS for the canonical domain. Set to false when using a custom certificate. | `bool` | `true` | no |
 | <a name="input_limited_collaborators"></a> [limited\_collaborators](#input\_limited\_collaborators) | List of emails of collaborators with limited (read-only) access to the application. | `list(string)` | `[]` | no |
 | <a name="input_log_drains"></a> [log\_drains](#input\_log\_drains) | List of log\_drain configuration to redirect logs from the application and addons to a log management service. Each configuration is automatically associated to the application and to every eligible addons. | <pre>list(object({<br/>    type         = string<br/>    url          = optional(string, "")<br/>    drain_region = optional(string, "")<br/>    host         = optional(string, "")<br/>    port         = optional(string, "")<br/>    token        = optional(string, "")<br/>  }))</pre> | `[]` | no |
-| <a name="input_name"></a> [name](#input\_name) | Name of the application. Must be unique on Scalingo. | `string` | n/a | yes |
 | <a name="input_notifiers"></a> [notifiers](#input\_notifiers) | List of notification channels (email, slack, webhook, rocket\_chat) for the application. | <pre>list(object({<br/>    name            = string<br/>    platform        = string<br/>    active          = optional(bool, true)<br/>    send_all_events = optional(bool, false)<br/>    send_all_alerts = optional(bool, false)<br/>    selected_events = optional(set(string), [])<br/>    emails          = optional(list(string), [])<br/>    webhook_url     = optional(string, "")<br/>  }))</pre> | `[]` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | ID of the Scalingo project to associate the application with. | `string` | `null` | no |
 | <a name="input_review_apps"></a> [review\_apps](#input\_review\_apps) | Configuration of the review apps of the application. | <pre>object({<br/>    enabled = optional(bool, false)<br/><br/>    # By default: delete review apps 0 hours after closing the PR<br/>    delete_on_close_enabled      = optional(bool, true)<br/>    hours_before_delete_on_close = optional(string, "0")<br/><br/>    # By default: delete review apps after 5 days of inactivity (= no new deployment)<br/>    delete_stale_enabled      = optional(bool, true)<br/>    hours_before_delete_stale = optional(string, "168")<br/><br/>    # By default: do not create review apps for PRs from forks<br/>    automatic_creation_from_forks_allowed = optional(bool, false)<br/>  })</pre> | `{}` | no |
 | <a name="input_router_logs"></a> [router\_logs](#input\_router\_logs) | When true, the router logs are included in the application logs. (default: `false`) | `bool` | `false` | no |
-| <a name="input_stack"></a> [stack](#input\_stack) | The stack to use for the app (default: "scalingo-26"). "scalingo-22" (Ubuntu 22.04 LTS) reaches end of life soon: prefer "scalingo-26" for new applications. | `string` | `"scalingo-26"` | no |
+| <a name="input_stack"></a> [stack](#input\_stack) | The stack to use for the app (default: "scalingo-26"). "scalingo-22" (Ubuntu 22.04 LTS) reaches end of life soon. | `string` | `"scalingo-26"` | no |
 | <a name="input_sticky_session"></a> [sticky\_session](#input\_sticky\_session) | When true, sticky sessions are enabled. (default: `false`) | `bool` | `false` | no |
 
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_all_environment_variables"></a> [all\_environment\_variables](#output\_all\_environment\_variables) | All environment variables of the Scalingo application (ones added by the terraform module and ones added by Scalingo add-ons). |
 | <a name="output_app_id"></a> [app\_id](#output\_app\_id) | ID of the Scalingo application. |
 | <a name="output_base_url"></a> [base\_url](#output\_base\_url) | Default URL of the Scalingo application (without canonical domain override). |
@@ -113,5 +113,5 @@ Used in production by :
 This module use `terraform-docs` to auto-generate its documentation. You can use it without installing it thanks to this `docker` command :
 
 ```
-docker run --rm -v "$(pwd):/terraform-docs" -u $(id -u) quay.io/terraform-docs/terraform-docs:0.19.0 markdown table /terraform-docs
+docker run --rm -v "$(pwd):/terraform-docs" -u $(id -u) quay.io/terraform-docs/terraform-docs:0.24.0 markdown table /terraform-docs
 ```

@@ -13,21 +13,6 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: google-github-actions/release-please-action@v4
+      - uses: googleapis/release-please-action@v5
         with:
-          release-type: terraform-module
-          package-name: release-please-action
-          # Keep breaking changes as minor bumps while in 0.x (semver §4):
-          # 0.5.0 + feat!: -> 0.6.0 instead of 1.0.0
-          bump-minor-pre-major: true
-          changelog-types: |
-            [
-              {"type":"feat","section":"✨ New features","hidden":false},
-              {"type":"fix","section":"🐛 Bug fixes","hidden":false},
-              {"type":"chore","section":"👷 Other changes","hidden":false},
-              {"type":"ci","section":"👷 Other changes","hidden":false},
-              {"type":"refacto","section":"👷 Other changes","hidden":false},
-              {"type":"build","section":"👷 Other changes","hidden":false},
-              {"type":"docs","section":"📚 Documentation","hidden":false}
-            ]
-          extra-files: README.md
+          config-file: release-please-config.json

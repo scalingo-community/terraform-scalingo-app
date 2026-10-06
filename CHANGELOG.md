@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.6.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.5.0...v0.6.0) (2026-10-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* the `stack` variable no longer accepts "scalingo-20" (removed from Scalingo's official stack list). Applications still using scalingo-20 must migrate before upgrading this module.
+
+### ✨ New features
+
+* drop retired scalingo-20 stack, default to scalingo-26 ([#30](https://github.com/scalingo-community/terraform-scalingo-app/issues/30)) ([38c7b3f](https://github.com/scalingo-community/terraform-scalingo-app/commit/38c7b3feffdc67308518cb291f735871a815fde1))
+
+
+### 🐛 Bug fixes
+
+* move release-please options to config file ([#34](https://github.com/scalingo-community/terraform-scalingo-app/issues/34)) ([7c42c0e](https://github.com/scalingo-community/terraform-scalingo-app/commit/7c42c0e84d8974e3d433a20e62692915f5bbe8f9))
+* use manifest config format and add manifest file ([#35](https://github.com/scalingo-community/terraform-scalingo-app/issues/35)) ([b8ccecd](https://github.com/scalingo-community/terraform-scalingo-app/commit/b8ccecdcb6f2a032121b64660d66f1e43fcbc8f9))
+
+
+### 👷 Other changes
+
+* keep breaking changes as minor bumps before 1.0.0 ([#33](https://github.com/scalingo-community/terraform-scalingo-app/issues/33)) ([fff1803](https://github.com/scalingo-community/terraform-scalingo-app/commit/fff180373a66165ee698c0052361db29ba2187a9))
+* upgrade terraform-docs to 0.24.0 ([#32](https://github.com/scalingo-community/terraform-scalingo-app/issues/32)) ([352b2ce](https://github.com/scalingo-community/terraform-scalingo-app/commit/352b2ce6aa757089755dc46e229e48a8514ca175))
+
 ## [0.5.0](https://github.com/scalingo-community/terraform-scalingo-app/compare/v0.4.0...v0.5.0) (2026-07-11)
 
 

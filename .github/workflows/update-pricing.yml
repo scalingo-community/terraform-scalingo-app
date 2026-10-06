@@ -1,0 +1,30 @@
+name: Update pricing
+on:
+  schedule:
+    # Once a month, on the 1st at 04:00 UTC
+    - cron: "0 4 1 * *"
+  workflow_dispatch:
+
+jobs:
+  update-pricing:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_wrapper: false
+      - name: Regenerate pricing_defaults.tf from the Scalingo API
+        run: ./scripts/update-pricing.sh
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "feat: update default Scalingo pricing"
+          title: "feat: update default Scalingo pricing"
+          body: |
+            Automated update of `pricing_defaults.tf` with the current public
+            Scalingo rates, fetched from the Scalingo API by
+            `scripts/update-pricing.sh` (see the *Update pricing* workflow).
+          branch: chore/update-pricing
+          delete-branch: true

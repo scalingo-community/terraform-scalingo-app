@@ -91,7 +91,7 @@ Used in production by :
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | ID of the Scalingo project to associate the application with. | `string` | `null` | no |
 | <a name="input_review_apps"></a> [review\_apps](#input\_review\_apps) | Configuration of the review apps of the application. | <pre>object({<br/>    enabled = optional(bool, false)<br/><br/>    # By default: delete review apps 0 hours after closing the PR<br/>    delete_on_close_enabled      = optional(bool, true)<br/>    hours_before_delete_on_close = optional(string, "0")<br/><br/>    # By default: delete review apps after 5 days of inactivity (= no new deployment)<br/>    delete_stale_enabled      = optional(bool, true)<br/>    hours_before_delete_stale = optional(string, "168")<br/><br/>    # By default: do not create review apps for PRs from forks<br/>    automatic_creation_from_forks_allowed = optional(bool, false)<br/>  })</pre> | `{}` | no |
 | <a name="input_router_logs"></a> [router\_logs](#input\_router\_logs) | When true, the router logs are included in the application logs. (default: `false`) | `bool` | `false` | no |
-| <a name="input_stack"></a> [stack](#input\_stack) | The stack to use for the app (default: "scalingo-22"). | `string` | `"scalingo-22"` | no |
+| <a name="input_stack"></a> [stack](#input\_stack) | The stack to use for the app (default: "scalingo-26"). "scalingo-22" (Ubuntu 22.04 LTS) reaches end of life soon: prefer "scalingo-26" for new applications. | `string` | `"scalingo-26"` | no |
 | <a name="input_sticky_session"></a> [sticky\_session](#input\_sticky\_session) | When true, sticky sessions are enabled. (default: `false`) | `bool` | `false` | no |
 
 ## Outputs

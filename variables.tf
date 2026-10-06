@@ -17,13 +17,13 @@ variable "project_id" {
 }
 
 variable "stack" {
-  description = "The stack to use for the app (default: \"scalingo-22\")."
+  description = "The stack to use for the app (default: \"scalingo-26\"). \"scalingo-22\" (Ubuntu 22.04 LTS) reaches end of life soon."
   type        = string
-  default     = "scalingo-22"
+  default     = "scalingo-26"
 
   validation {
-    condition     = contains(["scalingo-20", "scalingo-22", "scalingo-24"], var.stack)
-    error_message = "The stack value must be one of the following: scalingo-20, scalingo-22, scalingo-24"
+    condition     = contains(["scalingo-22", "scalingo-24", "scalingo-26"], var.stack)
+    error_message = "The stack value must be one of the following: scalingo-22, scalingo-24, scalingo-26 (scalingo-20 has been retired by Scalingo and is no longer supported)."
   }
 }
 
